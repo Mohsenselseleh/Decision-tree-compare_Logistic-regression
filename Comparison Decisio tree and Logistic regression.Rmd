@@ -1,0 +1,68 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+1. A data science student is using two machine learning algorithms to analyze a given
+dataset. First, she tests her model with a Decision Tree using a 10-fold Cross Validation
+and records the Accuracy for each fold. She then repeats the same process using a 12-fold
+Logistic Regression algorithm on the same dataset. The accuracy for each fold of the
+algorithms are given as follows:
+Decision Tree: 75, 79, 69, 78, 65, 87, 74, 81, 77, 88
+Logistic Regression: 85, 68, 78, 73, 69, 76, 69, 80, 73, 67, 78, 82
+(a) Is the dataset paired or unpaired?
+(b) Can she conclude that either one of the machine learning algorithm is more accurate
+than the other?
+i. Create vectors for each algorithm. Check the means of the accuracy reported
+for the two models.
+ii. Run wilcox.test command to check the significance of the comparison.
+
+```{r}
+DT<- c(75,79,69,78,65,87,74,81,77,88)
+LR<- c(85,68,78,73,69,76,69,80,73,67,78,82)
+mean(DT)
+mean(LR)
+```
+```{r}
+wilcox.test(LR, DT)
+```
+```{r}
+wilcox.test(LR, DT, exact= F)
+```
+```{r}
+a <- c(159, 135, 141, 101, 102, 168, 62, 167, 174, 159, 66, 118,
+181, 171, 112)
+b <- c(214, 159, 169, 202, 103, 119, 200, 109, 132, 142, 194, 104,
+219, 119, 234)
+wilcox.test(a,b,paired=TRUE)
+```
+3. Suppose you want to compare two software Zip and Tar on archiving files. For our
+experiment we collect 20 files and execute Zip and Tar on these files. The execution time
+(time from the beginning till the end of the archiving files in milliseconds) is recorded as
+follows:
+Zip execution time: 10, 44, 65, 77, 43, 44, 22, 66, 50, 100, 55, 99, 44, 23, 100, 88, 200,
+220, 110, 551
+Tar execution time: 20, 55, 75, 60, 55, 88, 35, 33, 35, 80, 65, 82, 47, 35, 97, 110, 250,
+190, 111, 600
+Your task is to find out if there is any significant difference in the execution times of
+these two different archiving programs based on their running time on the same files.
+(a) Are these two groups of samplings paired or independent? Why?
+(b) Assuming that the data is not normally distributed, use wilcox.test test to calculate the p-value. Based on the significant level of α = 0.05, what do you conclude
+about differences between the mean of run-time of two different archiving programs?
+These two groups are paired, as the runtime is calculated based on archiving the same
+files.
+```{r}
+zip <- c(10, 44, 65, 77, 43, 44, 22, 66, 50, 100, 55, 99, 44, 23,
+100, 88, 200, 220, 110, 551)
+tar <- tar <- c(20, 55, 75, 60, 55, 88, 35, 33, 35, 80, 65, 82,
+47, 35, 97, 110, 250, 190, 111, 600)
+
+
+```
+
+
+```{r}
+wilcox.test(zip,tar, paired=TRUE)
+
+```
+
